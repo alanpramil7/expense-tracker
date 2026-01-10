@@ -1,7 +1,10 @@
 import { HeadContent, Scripts, createRootRoute } from '@tanstack/react-router'
 import appCss from '../styles.css?url'
+import { QueryClient } from '@tanstack/react-query'
 
-export const Route = createRootRoute({
+export const Route = createRootRoute<
+  { queryClient: QueryClient }
+>({
   head: () => ({
     meta: [
       {
