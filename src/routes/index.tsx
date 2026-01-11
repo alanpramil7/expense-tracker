@@ -1,19 +1,23 @@
+import { authStateFn } from '@/lib/auth';
+import { SignOutButton } from '@clerk/tanstack-react-start';
 import { createFileRoute } from '@tanstack/react-router'
-import { useSuspenseQuery } from '@tanstack/react-query'
-import { convexQuery } from '@convex-dev/react-query'
-import { api } from 'convex/_generated/api'
 
 
-export const Route = createFileRoute("/")({ component: Home })
+export const Route = createFileRoute("/")({
+  component: Home,
+  beforeLoad: async () => await authStateFn(),
+  loader: async ({ context }) => {
+    return { userId: context.userId }
+  }
+})
 
 function Home() {
-  const { data } = useSuspenseQuery(convexQuery(api.tasks.get, {}));
+  const state = Route.useLoaderData()
 
   return (
-    <div>
-      {data.map(({ _id, text }) => (
-        <div key={_id}>{text}</div>
-      ))}
-    </div>
+    <>
+      <div>Hello Alan. Your id is {state.userId}</div>
+      <SignOutButton />
+    </>
   );
 }

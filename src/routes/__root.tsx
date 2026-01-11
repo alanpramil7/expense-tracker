@@ -1,6 +1,7 @@
 import { HeadContent, Scripts, createRootRoute } from '@tanstack/react-router'
 import appCss from '../styles.css?url'
 import { QueryClient } from '@tanstack/react-query'
+import { ClerkProvider } from '@clerk/tanstack-react-start'
 
 export const Route = createRootRoute<
   { queryClient: QueryClient }
@@ -38,14 +39,16 @@ function NotFoundComponent() {
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <head>
-        <HeadContent />
-      </head>
-      <body>
-        {children}
-        <Scripts />
-      </body>
-    </html>
+    <ClerkProvider >
+      <html lang="en">
+        <head>
+          <HeadContent />
+        </head>
+        <body>
+          {children}
+          <Scripts />
+        </body>
+      </html>
+    </ClerkProvider>
   )
 }
