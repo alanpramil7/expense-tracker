@@ -1,23 +1,22 @@
 import { authStateFn } from '@/lib/auth';
-import { SignOutButton } from '@clerk/tanstack-react-start';
 import { createFileRoute } from '@tanstack/react-router'
 
 
 export const Route = createFileRoute("/")({
-  component: Home,
+  component: Dashboard,
   beforeLoad: async () => await authStateFn(),
   loader: async ({ context }) => {
-    return { userId: context.userId }
+    return {
+      userId: context.userId,
+      title: 'Dashboard',
+    }
   }
 })
 
-function Home() {
-  const state = Route.useLoaderData()
-
+function Dashboard() {
   return (
-    <>
-      <div>Hello Alan. Your id is {state.userId}</div>
-      <SignOutButton />
-    </>
+    <div className="flex flex-col gap-4">
+      <h1 className="text-xl font-semibold tracking-tight">Overview</h1>
+    </div>
   );
 }

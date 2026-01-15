@@ -10,7 +10,7 @@ export const authStateFn = createServerFn({ method: 'GET' }).handler(async () =>
     // You can create a sign-in route to handle this
     // See https://clerk.com/docs/tanstack-react-start/guides/development/custom-sign-in-or-up-page
     throw redirect({
-      to: '/sign-in',
+      to: '/sign-in/$',
     })
   }
 
