@@ -25,15 +25,15 @@ function Dashboard() {
         <OverviewCard title="Expenses" value={0} />
         <OverviewCard title="Savings" value={0} />
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-2 flex-1 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-2 flex-1 gap-4 min-h-0">
         {/* Add two graphs side by side*/}
-        <Card className="flex flex-col">
-          <CardContent className="flex flex-1 items-center justify-center">
+        <Card className="flex flex-col min-h-0 overflow-hidden">
+          <CardContent className="flex flex-1 items-center justify-center overflow-auto">
             <p className="text-muted-foreground">Chart placeholder</p>
           </CardContent>
         </Card>
-        <Card className="flex flex-col">
-          <CardContent className="flex flex-1 items-center justify-center">
+        <Card className="flex flex-col min-h-0 overflow-hidden">
+          <CardContent className="flex flex-1 items-center justify-center overflow-auto">
             <p className="text-muted-foreground">Table placeholder</p>
           </CardContent>
         </Card>
@@ -41,4 +41,3 @@ function Dashboard() {
     </div>
   )
 }
-

@@ -9,7 +9,7 @@ interface OverviewCardProps {
 export const OverviewCard = ({ title, value }: OverviewCardProps) => {
 
   return (
-    <Card className='max-w-90 bg-custom1'>
+    <Card className='max-w-90 bg-card'>
       <CardHeader>
         <CardTitle>{title}</CardTitle>
       </CardHeader>
