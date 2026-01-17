@@ -53,6 +53,9 @@ code {
     --color-sidebar-accent-foreground: #f8fafc;
     --color-sidebar-border: #F5F5F5;
     --color-sidebar-ring: #3b82f6;
+
+    /*Custom colors*/
+    --color-custom1: #E5F1FD;
 }
 
 :root {
