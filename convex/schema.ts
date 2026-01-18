@@ -23,6 +23,7 @@ export default defineSchema({
     updatedAt: v.number(),
   })
     .index('by_userId', ['userId'])
+    .index('by_name', ['name'])
     .index('by_type', ['type'])
     .index('by_userId_type', ['userId', 'type'])
     .index('by_isSystem', ['isSystem']),

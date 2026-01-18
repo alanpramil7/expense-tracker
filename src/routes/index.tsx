@@ -1,7 +1,10 @@
+import { AddTranscationForm } from '@/components/add-transaction-form';
 import { OverviewCard } from '@/components/overview-card';
+import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { authStateFn } from '@/lib/auth';
 import { createFileRoute } from '@tanstack/react-router'
+import { Plus } from 'lucide-react'
 
 export const Route = createFileRoute("/")({
   component: Dashboard,
@@ -38,6 +41,7 @@ function Dashboard() {
           </CardContent>
         </Card>
       </div>
+      <AddTranscationForm />
     </div>
   )
 }
