@@ -5,7 +5,7 @@ import { Field, FieldGroup, FieldLabel, FieldSet } from './ui/field';
 import { Input } from './ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { useQuery } from "@tanstack/react-query";
-import { convexQuery } from '@convex-dev/react-query';
+import { convexQuery, useConvexMutation } from '@convex-dev/react-query';
 import { api } from 'convex/_generated/api';
 import { useState } from 'react';
 
@@ -16,8 +16,14 @@ export const AddTranscationForm = () => {
   const [category, setCategory] = useState('');
   const [amount, setAmount] = useState('');
   const { data: categoryData } = useQuery(convexQuery(api.category.getCategoryByType, { type: transactionType }))
+  const addTransaction = useConvexMutation(api.category.addTransaction)
 
   const handleSubmit = (e: React.FormEvent) => {
+    addTransaction({
+      type: transactionType,
+      amount: parseFloat(amount),
+      categoryId: category,
+    })
     e.preventDefault();
     console.log({
       type: transactionType,

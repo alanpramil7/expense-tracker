@@ -47,3 +47,30 @@ export const getCategoryByType = query({
     return categories;
   },
 });
+
+export const addTransaction = mutation({
+  args: {
+    type: v.union(
+      v.literal('income'),
+      v.literal('expense')
+    ),
+    amount: v.number(),
+    categoryId: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const userId = await ctx.auth.getUserIdentity().then((i) => i?.subject)
+    console.log(userId)
+
+    // userId: v.string(),
+    // type: v.union(
+    //   v.literal('income'),
+    //   v.literal('expense')
+    // ),
+    // amount: v.number(),
+    // categoryId: v.string(),
+    // description: v.optional(v.string()),
+    // date: v.number(),
+    // isDeleted: v.boolean(),
+    // updatedAt: v.number(),
+  },
+})

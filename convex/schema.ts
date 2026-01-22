@@ -36,7 +36,7 @@ export default defineSchema({
     ),
     amount: v.number(),
     categoryId: v.string(),
-    description: v.string(),
+    description: v.optional(v.string()),
     date: v.number(),
     isDeleted: v.boolean(),
     updatedAt: v.number(),

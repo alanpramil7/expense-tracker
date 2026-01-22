@@ -1,16 +1,23 @@
-import { HeadContent, Scripts, createRootRoute, useMatches } from '@tanstack/react-router'
+import { HeadContent, Scripts, createRootRoute, useMatches, getRouteApi, useRouteContext } from '@tanstack/react-router'
 import appCss from '../styles.css?url'
 import { QueryClient } from '@tanstack/react-query'
-import { ClerkProvider, SignedIn, SignedOut } from '@clerk/tanstack-react-start'
+import { ClerkProvider, SignedIn, SignedOut, useAuth } from '@clerk/tanstack-react-start'
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar'
 import { AppSidebar } from '@/components/sidebar'
 import { ThemeProvider, useTheme } from '@/context/theme-provider'
 import { ThemeToggle } from '@/components/theme-toggle'
 import { catppuccinThemes } from '@/lib/theme'
-
+import { ConvexQueryClient } from '@convex-dev/react-query'
+import { ConvexReactClient } from 'convex/react'
+import { ConvexProviderWithClerk } from 'convex/react-clerk'
 
 export const Route = createRootRoute<
-  { queryClient: QueryClient }
+  {
+    queryClient: QueryClient,
+    convexClient: ConvexReactClient,
+    convexQueryClient: ConvexQueryClient
+
+  }
 >({
   head: () => ({
     meta: [
@@ -68,12 +75,15 @@ function Header() {
 function ClerkThemedProvider({ children }: { children: React.ReactNode }) {
   const { resolvedTheme } = useTheme()
   const themeVars = catppuccinThemes[resolvedTheme as 'light' | 'dark'] || catppuccinThemes.light
+  const context = useRouteContext({ from: Route.id })
 
   return (
     <ClerkProvider appearance={{
       variables: themeVars,
     }}>
-      {children}
+      <ConvexProviderWithClerk client={context.convexClient} useAuth={useAuth}>
+        {children}
+      </ConvexProviderWithClerk>
     </ClerkProvider>
   )
 }
