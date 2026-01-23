@@ -18,7 +18,7 @@ export const AddTranscationForm = () => {
   const [category, setCategory] = useState<Id<"categories">>();
   const [amount, setAmount] = useState('');
   const { data: categoryData } = useQuery(convexQuery(api.category.getCategoryByType, { type: transactionType }))
-  const addTransaction = useConvexMutation(api.category.addTransaction)
+  const addTransaction = useConvexMutation(api.transaction.addTransaction)
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

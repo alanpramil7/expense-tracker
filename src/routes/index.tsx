@@ -1,10 +1,11 @@
 import { AddTranscationForm } from '@/components/add-transaction-form';
 import { OverviewCard } from '@/components/overview-card';
-import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { authStateFn } from '@/lib/auth';
-import { createFileRoute } from '@tanstack/react-router'
-import { Plus } from 'lucide-react'
+import { convexQuery } from '@convex-dev/react-query';
+import { createFileRoute } from '@tanstack/react-router';
+import { api } from 'convex/_generated/api';
+import { useQuery } from '@tanstack/react-query';
 
 export const Route = createFileRoute("/")({
   component: Dashboard,
@@ -18,6 +19,9 @@ export const Route = createFileRoute("/")({
 })
 
 function Dashboard() {
+  const { data: transactionData } = useQuery(convexQuery(api.transaction.getTransactionByType, { type: 'income' }))
+  console.log(transactionData)
+
   return (
     <div className="flex flex-1 flex-col gap-6 p-6">
       <h1 className="text-2xl font-semibold tracking-tight">Overview</h1>

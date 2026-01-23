@@ -10,6 +10,7 @@
 
 import type * as category from "../category.js";
 import type * as category_seed from "../category_seed.js";
+import type * as transaction from "../transaction.js";
 
 import type {
   ApiFromModules,
@@ -20,6 +21,7 @@ import type {
 declare const fullApi: ApiFromModules<{
   category: typeof category;
   category_seed: typeof category_seed;
+  transaction: typeof transaction;
 }>;
 
 /**
