@@ -8,33 +8,37 @@ import { useQuery } from "@tanstack/react-query";
 import { convexQuery, useConvexMutation } from '@convex-dev/react-query';
 import { api } from 'convex/_generated/api';
 import { useState } from 'react';
+import { Id } from 'convex/_generated/dataModel';
 
 type TransactionType = 'income' | 'expense';
 
 export const AddTranscationForm = () => {
+  const [open, setOpen] = useState(false);
   const [transactionType, setTransactionType] = useState<TransactionType>('expense');
-  const [category, setCategory] = useState('');
+  const [category, setCategory] = useState<Id<"categories">>();
   const [amount, setAmount] = useState('');
   const { data: categoryData } = useQuery(convexQuery(api.category.getCategoryByType, { type: transactionType }))
   const addTransaction = useConvexMutation(api.category.addTransaction)
 
   const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!category) {
+      return;
+    }
     addTransaction({
       type: transactionType,
       amount: parseFloat(amount),
       categoryId: category,
     })
-    e.preventDefault();
-    console.log({
-      type: transactionType,
-      category,
-      amount: parseFloat(amount),
-    });
+    setOpen(false);
+    // Reset form
+    setCategory(undefined);
+    setAmount('');
   }
 
   return (
     <div>
-      <Dialog>
+      <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
           <Button
             size="icon"
@@ -59,7 +63,7 @@ export const AddTranscationForm = () => {
                     </FieldLabel>
                     <Select value={transactionType} onValueChange={(value: TransactionType) => {
                       setTransactionType(value)
-                      setCategory('')
+                      setCategory(undefined)
                     }}>
                       <SelectTrigger id="transcation-type">
                         <SelectValue placeholder="transaction-type" />
@@ -76,7 +80,7 @@ export const AddTranscationForm = () => {
                     <FieldLabel htmlFor="transcation-category">
                       Category
                     </FieldLabel>
-                    <Select value={category} onValueChange={setCategory} required>
+                    <Select value={category} onValueChange={(value) => setCategory(value as Id<"categories">)} required>
                       <SelectTrigger id="transcation-category">
                         <SelectValue placeholder="Select Category" />
                       </SelectTrigger>

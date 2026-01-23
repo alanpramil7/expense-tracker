@@ -55,22 +55,24 @@ export const addTransaction = mutation({
       v.literal('expense')
     ),
     amount: v.number(),
-    categoryId: v.string(),
+    categoryId: v.id("categories"),
+    description: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
     const userId = await ctx.auth.getUserIdentity().then((i) => i?.subject)
-    console.log(userId)
-
-    // userId: v.string(),
-    // type: v.union(
-    //   v.literal('income'),
-    //   v.literal('expense')
-    // ),
-    // amount: v.number(),
-    // categoryId: v.string(),
-    // description: v.optional(v.string()),
-    // date: v.number(),
-    // isDeleted: v.boolean(),
-    // updatedAt: v.number(),
+    if (!userId) {
+      throw new Error("User ID not found.")
+    }
+    const now = Date.now();
+    await ctx.db.insert('transactions', {
+      userId: userId,
+      type: args.type,
+      amount: args.amount,
+      categoryId: args.categoryId,
+      description: args.description,
+      date: now,
+      isDeleted: false,
+      updatedAt: now,
+    })
   },
 })
