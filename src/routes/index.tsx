@@ -6,8 +6,10 @@ import { convexQuery } from '@convex-dev/react-query';
 import { createFileRoute } from '@tanstack/react-router';
 import { api } from 'convex/_generated/api';
 import { useQuery } from '@tanstack/react-query';
-import { BarChart3, Receipt } from 'lucide-react';
+import { Receipt } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
+import { ChartBarMultiple } from '@/components/bar-chart';
+import { TableDemo } from '@/components/trasnaction-table';
 
 export const Route = createFileRoute("/")({
   component: Dashboard,
@@ -54,7 +56,7 @@ function Dashboard() {
     : 0;
 
   return (
-    <div className="flex flex-1 flex-col gap-8 p-8">
+    <div className="flex flex-1 flex-col gap-8 p-4">
       <h1 className="text-2xl font-semibold tracking-tight">Overview</h1>
 
       {/* Overview Cards */}
@@ -83,25 +85,8 @@ function Dashboard() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 flex-1 gap-6 min-h-0">
-        {/* Chart placeholder / empty state */}
-        <Card className="flex flex-col min-h-0 overflow-hidden rounded-2xl border-0 shadow-md">
-          <CardContent className="flex flex-1 flex-col items-center justify-center gap-3 overflow-auto p-8">
-            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-muted animate-pulse-soft">
-              <BarChart3 className="h-8 w-8 text-muted-foreground" />
-            </div>
-            <p className="text-sm text-muted-foreground">No chart data yet</p>
-          </CardContent>
-        </Card>
-
-        {/* Table placeholder / empty state */}
-        <Card className="flex flex-col min-h-0 overflow-hidden rounded-2xl border-0 shadow-md">
-          <CardContent className="flex flex-1 flex-col items-center justify-center gap-3 overflow-auto p-8">
-            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-muted animate-pulse-soft">
-              <Receipt className="h-8 w-8 text-muted-foreground" />
-            </div>
-            <p className="text-sm text-muted-foreground">No transactions yet</p>
-          </CardContent>
-        </Card>
+        <ChartBarMultiple />
+        <TableDemo />
       </div>
 
       <AddTranscationForm />

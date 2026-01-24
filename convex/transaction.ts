@@ -52,3 +52,21 @@ export const getTransactionByType = query({
     return transactions
   }
 })
+
+
+export const getAllTransactions = query({
+  args: {},
+  handler: async (ctx, args) => {
+    const userId = await ctx.auth.getUserIdentity().then((i) => i?.subject)
+    if (!userId) {
+      throw new Error("User ID not found.")
+    }
+    const transactions = await ctx.db
+      .query("transactions")
+      .withIndex('by_userId_date')
+      .order('asc')
+      .filter((q) => q.eq(q.field('userId'), userId))
+      .collect()
+    return transactions
+  }
+})
