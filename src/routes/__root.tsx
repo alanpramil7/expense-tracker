@@ -1,4 +1,4 @@
-import { HeadContent, Scripts, createRootRoute, useMatches, getRouteApi, useRouteContext } from '@tanstack/react-router'
+import { HeadContent, Scripts, createRootRoute, useMatches } from '@tanstack/react-router'
 import appCss from '../styles.css?url'
 import { QueryClient } from '@tanstack/react-query'
 import { ClerkProvider, SignedIn, SignedOut, useAuth } from '@clerk/tanstack-react-start'
@@ -11,14 +11,13 @@ import { ConvexQueryClient } from '@convex-dev/react-query'
 import { ConvexReactClient } from 'convex/react'
 import { ConvexProviderWithClerk } from 'convex/react-clerk'
 
-export const Route = createRootRoute<
-  {
-    queryClient: QueryClient,
-    convexClient: ConvexReactClient,
-    convexQueryClient: ConvexQueryClient
+type RootRouteContext = {
+  queryClient: QueryClient
+  convexClient: ConvexReactClient
+  convexQueryClient: ConvexQueryClient
+}
 
-  }
->({
+export const Route = createRootRoute({
   head: () => ({
     meta: [
       {
@@ -75,7 +74,7 @@ function Header() {
 function ClerkThemedProvider({ children }: { children: React.ReactNode }) {
   const { resolvedTheme } = useTheme()
   const themeVars = catppuccinThemes[resolvedTheme as 'light' | 'dark'] || catppuccinThemes.light
-  const context = useRouteContext({ from: Route.id })
+  const context = Route.useRouteContext() as RootRouteContext
 
   return (
     <ClerkProvider appearance={{

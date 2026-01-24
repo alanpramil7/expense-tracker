@@ -20,7 +20,6 @@ export const seedCategories = mutation({
         ...cat,
         updatedAt: now
       })
-      console.log(res)
     })
     return {
       success: true,

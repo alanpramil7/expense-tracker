@@ -42,13 +42,13 @@ export const getTransactionByType = query({
     if (!userId) {
       throw new Error("User ID not found.")
     }
-    const income = await ctx.db
+    const transactions = await ctx.db
       .query("transactions")
       .withIndex('by_userId_date')
       .order('asc')
       .filter((q) => q.eq(q.field('userId'), userId))
       .filter((q) => q.eq(q.field('type'), args.type))
       .collect()
-    return income
+    return transactions
   }
 })
