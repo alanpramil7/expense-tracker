@@ -10,6 +10,7 @@ import { catppuccinThemes } from '@/lib/theme'
 import { ConvexQueryClient } from '@convex-dev/react-query'
 import { ConvexReactClient } from 'convex/react'
 import { ConvexProviderWithClerk } from 'convex/react-clerk'
+import { UserButton } from "@clerk/tanstack-react-start"
 
 type RootRouteContext = {
   queryClient: QueryClient
@@ -65,7 +66,10 @@ function Header() {
         <SidebarTrigger />
         {title && <h1 className="text-xl font-semibold leading-none mt-1 text-muted-foreground">{title}</h1>}
       </div>
-      <ThemeToggle />
+      <div className='flex gap-4 items-center  justify-center'>
+        <ThemeToggle />
+        <UserButton />
+      </div>
     </div>
   )
 }

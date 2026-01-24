@@ -82,10 +82,10 @@ export function ChartBarMultiple() {
 
   if (isLoading) {
     return (
-      <Card className="border-0">
-        <div className="flex flex-1 items-center justify-center">
-          Loading...
-        </div>
+      <Card className="rounded-2xl border-0 shadow-md animate-fade-in-up stagger-2">
+        <CardContent className="flex flex-1 items-center justify-center p-8">
+          <div>Loading...</div>
+        </CardContent>
       </Card>
     );
   }

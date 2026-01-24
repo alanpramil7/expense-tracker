@@ -64,7 +64,7 @@ export const getAllTransactions = query({
     const transactions = await ctx.db
       .query("transactions")
       .withIndex('by_userId_date')
-      .order('asc')
+      .order('desc')
       .filter((q) => q.eq(q.field('userId'), userId))
       .collect()
     return transactions

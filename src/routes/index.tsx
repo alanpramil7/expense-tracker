@@ -6,7 +6,6 @@ import { convexQuery } from '@convex-dev/react-query';
 import { createFileRoute } from '@tanstack/react-router';
 import { api } from 'convex/_generated/api';
 import { useQuery } from '@tanstack/react-query';
-import { Receipt } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { ChartBarMultiple } from '@/components/bar-chart';
 import { TableDemo } from '@/components/trasnaction-table';

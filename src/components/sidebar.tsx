@@ -2,7 +2,6 @@ import { Home, PlusCircle, TrendingUp, Settings } from "lucide-react"
 import {
   Sidebar,
   SidebarContent,
-  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
@@ -12,7 +11,6 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
 import { Link } from "@tanstack/react-router"
-import { UserButton } from "@clerk/tanstack-react-start"
 
 const items = [
   {
@@ -76,15 +74,6 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter>
-        <SidebarMenu>
-          <SidebarMenuItem>
-            <SidebarMenuButton asChild>
-              <UserButton />
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-        </SidebarMenu>
-      </SidebarFooter>
     </Sidebar>
   )
 }
