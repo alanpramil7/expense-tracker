@@ -6,14 +6,17 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "./ui/card"
 import { useQuery } from "@tanstack/react-query"
 import { convexQuery } from "@convex-dev/react-query"
 import { api } from "convex/_generated/api"
 import { Receipt } from "lucide-react"
 import { useMemo } from "react"
+import { Button } from "./ui/button"
+import { useNavigate } from "@tanstack/react-router"
 
 export function TableDemo() {
+  const naviagte = useNavigate();
   const { data: transactions, isLoading: isLoadingTransactions } = useQuery(
     convexQuery(api.transaction.getAllTransactions, {})
   )
@@ -101,6 +104,13 @@ export function TableDemo() {
           </TableBody>
         </Table>
       </CardContent>
+      <CardFooter className="flex items-center justify-center">
+        <Button
+          className="cursor-pointer"
+          onClick={() => naviagte({ to: '/transactions' })}>
+          View All Transactions
+        </Button>
+      </CardFooter>
     </Card>
   )
 }

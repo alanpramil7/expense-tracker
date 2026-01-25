@@ -1,4 +1,4 @@
-import { Home, PlusCircle, TrendingUp, Settings } from "lucide-react"
+import { Home, TrendingUp, Settings, ArrowLeftRight } from "lucide-react"
 import {
   Sidebar,
   SidebarContent,
@@ -19,9 +19,9 @@ const items = [
     icon: Home,
   },
   {
-    title: "Add Expense",
-    url: "/expenses/new",
-    icon: PlusCircle,
+    title: "Transactions",
+    url: "/transactions",
+    icon: ArrowLeftRight,
   },
   {
     title: "Analytics",

@@ -16,7 +16,6 @@ export const Route = createFileRoute("/")({
   loader: async ({ context }) => {
     return {
       userId: context.userId,
-      title: 'Dashboard',
     }
   }
 })

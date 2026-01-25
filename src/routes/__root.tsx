@@ -56,6 +56,7 @@ function Header() {
 
   const titles: Record<string, string> = {
     '/': 'Dashboard',
+    '/transactions': 'Transactions',
     '/settings': 'Settings'
   }
   const title = pageMath ? titles[pageMath.routeId] : ''
